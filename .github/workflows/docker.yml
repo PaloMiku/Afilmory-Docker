@@ -94,6 +94,8 @@ jobs:
         platforms: linux/amd64
         push: true
         tags: ghcr.io/palomiku/afilmory:latest
+        secrets: |
+          GIT_TOKEN=${{ secrets.GITHUB_TOKEN }}
 
     - name: Store artifact commit version
       shell: bash
