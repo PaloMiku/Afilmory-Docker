@@ -22,11 +22,10 @@ COPY config.json ./
 COPY builder.config.json ./
 COPY .env ./
 
-ARG S3_ACCESS_KEY_ID
-ARG S3_SECRET_ACCESS_KEY
-ARG GIT_TOKEN
-ARG PG_CONNECTION_STRING
-
+RUN --mount=type=secret,id=aws-key-id,env=S3_ACCESS_KEY_ID \
+    --mount=type=secret,id=aws-secret-key,env=S3_SECRET_ACCESS_KEY \
+    --mount=type=secret,id=aws-session-token,env=S3_SESSION_TOKEN \
+    --mount=type=secret,id=git-token,env=GIT_TOKEN
 RUN sh ./scripts/preinstall.sh
 # Install all dependencies
 RUN pnpm install --frozen-lockfile
